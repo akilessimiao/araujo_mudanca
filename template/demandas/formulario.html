@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Mudança</title>
+    <script>
+        function calcularPeso() {
+            const pesos = {
+                "geladeira": 60, "sofá": 80, "máquina de lavar": 70,
+                "cama": 50, "mesa": 30, "cadeira": 10,
+                "caixa_pequena": 5, "caixa_media": 10, "caixa_grande": 15
+            };
+            let totalPeso = 0;
+            document.querySelectorAll(".item").forEach(item => {
+                const quantidade = parseInt(item.value) || 0;
+                totalPeso += (pesos[item.name] || 0) * quantidade;
+            });
+            document.getElementById("pesoTotal").innerText = `Peso Estimado: ${totalPeso} kg`;
+        }
+    </script>
+</head>
+<body>
+    <h2>Cadastro de Mudança</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Nome: <input type="text" name="nome_cliente" required></label><br>
+        <label>Email: <input type="email" name="email" required></label><br>
+        <label>Telefone: <input type="text" name="telefone" required></label><br>
+        
+        <h3>Selecione os itens da mudança:</h3>
+        <label>Geladeira: <input type="number" class="item" name="geladeira" min="0" value="0" onchange="calcularPeso()"></label><br>
+        <label>Sofá: <input type="number" class="item" name="sofá" min="0" value="0" onchange="calcularPeso()"></label><br>
+        <label>Máquina de Lavar: <input type="number" class="item" name="máquina de lavar" min="0" value="0" onchange="calcularPeso()"></label><br>
+        <label>Cama: <input type="number" class="item" name="cama" min="0" value="0" onchange="calcularPeso()"></label><br>
+        <label>Mesa: <input type="number" class="item" name="mesa" min="0" value="0" onchange="calcularPeso()"></label><br>
+        <label>Cadeira: <input type="number" class="item" name="cadeira" min="0" value="0" onchange="calcularPeso()"></label><br>
+        <label>Caixa Pequena: <input type="number" class="item" name="caixa_pequena" min="0" value="0" onchange="calcularPeso()"></label><br>
+        <label>Caixa Média: <input type="number" class="item" name="caixa_media" min="0" value="0" onchange="calcularPeso()"></label><br>
+        <label>Caixa Grande: <input type="number" class="item" name="caixa_grande" min="0" value="0" onchange="calcularPeso()"></label><br>
+
+        <p id="pesoTotal">Peso Estimado: 0 kg</p>
+
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
